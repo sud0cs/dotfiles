@@ -1,0 +1,65 @@
+configuration{
+  font: "MesloLGS Nerd Font 13";
+  show-icons: true;
+}
+*{
+
+  bg: #272835;
+  fg: #ced4df;
+  accent: #52557e;
+
+  background-color: @bg;
+  border-radius: 20px;
+  color: @fg;
+}
+window{
+  height: 300px;
+  width: 600px;
+  location: center;
+  ancor: center;
+  spacing: 0;
+  children: [mainbox];
+  background-color: transparent;
+}
+mainbox{
+  /*height: 200px;
+  width: 200px;*/
+  background-color: transparent;
+  children:[ inputbar, listview ];
+}
+inputbar{
+  margin: 0px 0px 10px 0px;
+  border: 2px;
+  border-color: @accent;
+  children: [ textbox-prompt-colon , entry ];
+}
+textbox-prompt-colon{
+  expand: false;
+  padding: 10px;
+  location: center;
+  str: "";
+}
+entry{
+  padding: 10px;
+}
+listview{
+  padding: 20px;
+  border: 2px;
+  border-color: @accent;
+}
+element{
+  padding: 8px;
+}
+element.selected.normal{
+  background-color: @accent;
+}
+element-text.selected.normal{
+  background-color: @accent;
+}
+element-icon.selected.normal{
+  background-color: @accent;
+}
+element-icon{
+  size: 20px;
+  padding: 0px 20px 0px 20px;
+}

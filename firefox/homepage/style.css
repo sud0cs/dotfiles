@@ -1,0 +1,39 @@
+:root{
+  --bg: #272835;
+  --accent: #52557e;
+  --font-color: #ced4df;
+}
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#search-bar{
+  padding: 0px;
+  border-radius: 20px;
+  border: 2px solid var(--accent);
+  display: flex;
+  flex-direction: row;
+  width: 50%
+}
+#search-icon{
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  color: var(--accent);
+}
+#search{
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  /*font-family: FiraCode Nerd Font;*/
+  font-size: 15px;
+  color: var(--font-color);
+}
+#search:focus{
+  outline: none;
+}
