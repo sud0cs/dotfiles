@@ -327,7 +327,7 @@ end)
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey, "Shift"   }, "s",     function () awful.spawn("scrot -d 2") end),
+    awful.key({ modkey, "Shift"   }, "s",     function () awful.spawn("flameshot gui") end),
     awful.key({ modkey,           }, "m",     function () awful.screen.focused().settings_wibox.visible = not awful.screen.focused().settings_wibox.visible end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
