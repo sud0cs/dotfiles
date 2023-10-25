@@ -1,4 +1,5 @@
 # Dotfiles
+![overview](./resources/overview.png "Overview")
 ## TODO
 - Finish quick menu
 - Fix some rc.lua stuff
