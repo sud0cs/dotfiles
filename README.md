@@ -32,7 +32,7 @@ cp -r dotfiles/kitty .config/ && \
 cp -r dotfiles/rofi .config/ && \
 cp -r dotfiles/autocolor .config/ && \
 cp -r dotfiles/firefox/homepage . && \
-cp -r dotfiles/firefox/chrome && .mozilla/firefox/*.default-release/ \
+cp -r dotfiles/firefox/chrome .mozilla/firefox/*.default-release/ && \
 sudo cp -r dotfiles/picom/picom.conf /etc/xdg/
 ```
 
