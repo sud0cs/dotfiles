@@ -1,5 +1,5 @@
 from PIL import Image
-import os, sys, collections, getpass
+import getpass
 import re
 import math
 

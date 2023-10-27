@@ -26,9 +26,11 @@ theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(10)
 theme.border_width  = dpi(0)
-theme.border_normal = "#349BC4"
-theme.border_focus  = "#349BC4"
-theme.border_marked = "#91231c00"
+theme.border_normal = "#00000000"
+theme.border_focus  = "#00000000"
+theme.border_marked = "#00000000"
+
+theme.wallpaper = "~/.wallpapers/arch_chan.jpg"
 
 -- There are other variable sets
 -- overriding the default one when
@@ -88,8 +90,6 @@ theme.border_marked = "#91231c00"
 --theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
 --theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 --theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
-
-theme.wallpaper = "/home/arion/.wallpapers/arch_chan.jpg"
 
 -- You can use your own layout icons like this:
 --theme.layout_fairh = themes_path.."default/layouts/fairhw.png"

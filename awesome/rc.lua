@@ -173,40 +173,90 @@ local function set_wallpaper(s)
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-int_volume = 0
+--int_volume = 0
 --awful.spawn.easy_async('pamixer --get-volume', function (stdout)
 --  int_volume = stdout + 0
 --end)
-int_volume = io.popen("pamixer --get-volume"):read("*a")
-int_volume = math.floor(int_volume + 0)
+int_volume = nil
+while (int_volume == nil) do
+  int_volume = io.popen("pamixer --get-volume"):read("*a")
+  int_volume = tonumber(int_volume)
+end
 screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
 --naughty.notification({message = "UwU"})
-  volume_icon = wibox.widget.textbox("  ")
+  volume_icon = wibox.widget.textbox(" ")
   volume_icon.font = "MesloLGS Nerd Font 12"
+  volume_icon_container = wibox.container.margin(volume_icon, 20, 10, 20, 20)
   s.volume = wibox.widget{
     bar_shape = gears.shape.rounded_rect,
-    forced_height = 3,
-    forced_width = 200,
-    handle_width = 10,
-    bar_width = 10,
+    forced_width = 250,
+    handle_width = 11,
+    bar_width = 100,
     bar_height          = 3,
     bar_color           = beautiful.fg_normal,
     handle_color        = beautiful.fg_normal,
     handle_shape        = gears.shape.circle,
     handle_border_color = beautiful.fg_normal,
-    handle_border_width = 1,
+    handle_border_width = 0,
     value               = int_volume,
     widget              = wibox.widget.slider,
   }
-  s.volume_text =  wibox.widget.textbox(string.format(" %s", int_volume))
+  s.volume_container = wibox.container.margin(s.volume, 10, 10, 20, 20)
+  s.volume_text =  wibox.widget.textbox(string.format("%s", int_volume))
   s.volume_text.font = "MesloLGS Nerd Font 12"
+  s.volume_text_container = wibox.container.margin(s.volume_text, 10, 20, 20, 20)
   s.volume:connect_signal("property::value", function (_, _new)
+
     awful.spawn.easy_async(string.format("pamixer --set-volume %s", math.floor(s.volume.value)), function ()
       
     end)
-    s.volume_text.text = string.format(" %s", s.volume.value)
+    s.volume_text.text = string.format("%s", s.volume.value)
   end)
+
+  s.volume:connect_signal("mouse::enter", function(_) 
+    s.volume.bar_color = beautiful.fg_focus
+    s.volume.handle_color = beautiful.fg_focus
+  end)
+
+  s.volume:connect_signal("mouse::leave", function(_) 
+    s.volume.bar_color = beautiful.fg_normal
+    s.volume.handle_color = beautiful.fg_normal
+  end)
+
+  s.poweroff = wibox.widget.textbox(" ")
+  s.poweroff.font = "MesloLGS Nerd Font 70"
+  s.poweroff:connect_signal("mouse::enter", function(_)
+    s.poweroff.markup = "<span foreground='" .. beautiful.fg_focus .. "'> </span>"
+  end)
+  s.poweroff:connect_signal("mouse::leave", function(_)
+    s.poweroff.markup = "<span foreground='" .. beautiful.fg_normal .. "'> </span>"
+  end)
+  s.poweroff:connect_signal("button::release", function(_,lx,ly,button)
+    if button==1
+    then
+    awful.spawn("poweroff")
+    end
+  end)
+  s.poweroff_container = wibox.container.place(s.poweroff, "center", "center")
+
+  s.reboot = wibox.widget.textbox(" ")
+  s.reboot.font = "MesloLGS Nerd Font 70"
+  s.reboot:connect_signal("mouse::enter", function(_)
+    s.reboot.markup = "<span foreground='" .. beautiful.fg_focus .. "'> </span>"
+  end)
+  s.reboot:connect_signal("mouse::leave", function(_)
+    s.reboot.markup = "<span foreground='" .. beautiful.fg_normal .. "'> </span>"
+  end)
+  s.reboot:connect_signal("button::release", function(_,lx,ly,button)
+    if button==1
+    then
+    awful.spawn("poweroff")
+    end
+  end)
+
+  s.reboot_container = wibox.container.place(s.reboot, "center", "center")
+
 
   s.settings_wibox = wibox({
     visible = false,
@@ -224,12 +274,17 @@ awful.screen.connect_for_each_screen(function(s)
   })
 
   s.settings_wibox:setup{
-    layout = wibox.layout.fixed.horizontal,
+    layout = wibox.layout.flex.horizontal,
     {
       layout = wibox.layout.fixed.horizontal,
-      volume_icon,
-      s.volume,
-      s.volume_text
+      volume_icon_container,
+      s.volume_container,
+      s.volume_text_container
+    },
+    {
+      layout = wibox.layout.flex.vertical,
+      s.poweroff_container,
+      s.reboot_container
     }
   }
 
