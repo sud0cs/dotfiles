@@ -51,9 +51,9 @@ To set up the firefox first go to about:config, search `toolkit.legacyUserProfil
 List of keybindings which differ from the default.
 |keybinding|description|
 |---|---|
-|`mod`+`space`|run rofi|
-|`mod`+`m`|show/hide quick menu|
-|`mod`+`shift`+`q`|close window|
-|`mod`+`󰁍`|select previous window|
-|`mod`+`󰁔`|select next window|
+|`mod`+`Space`|run rofi|
+|`mod`+`Escape`|show/hide quick menu|
+|`mod`+`Shift`+`q`|close window|
+|`mod`+`Tab`|select next workspace|
+|`mod`+`Shift`+`Tab`|select previous workspace|
 |`mod`+`shift`+`s`|take screenshot with flameshot|
