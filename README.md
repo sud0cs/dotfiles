@@ -28,22 +28,23 @@ git clone https://github.com/sud0cs/dotfiles
 Now lets copy the files to their corresponding location. <b> Remember to backup your config before!</b>
 
 ```bash
-cp -r dotfiles/awesome .config/ && \
-cp -r dotfiles/kitty .config/ && \
-cp -r dotfiles/rofi .config/ && \
-cp -r dotfiles/autocolor .config/ && \
-cp -r dotfiles/firefox/homepage . && \
-cp -r dotfiles/firefox/chrome .mozilla/firefox/*.default-release/ && \
+cp -r dotfiles/awesome ~/.config/ && \
+cp -r dotfiles/kitty ~/.config/ && \
+cp -r dotfiles/rofi ~/.config/ && \
+cp -r dotfiles/autocolor ~/.config/ && \
+cp -r dotfiles/.wallpapers ~
+cp -r dotfiles/firefox/homepage ~ && \
+cp -r dotfiles/firefox/chrome ~/.mozilla/firefox/*.default-release/ && \
 sudo cp -r dotfiles/picom/picom.conf /etc/xdg/
 ```
 
 We need to create a virtual environment to run the python code:
 
 ```bash
-cd .config/autocolor && \
+cd ~/.config/autocolor && \
 python3 -m venv venv && \
 source venv/bin/activate && \
-pip install pillow && exit
+pip install pillow
 
 ```
 
