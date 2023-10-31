@@ -17,7 +17,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-autocolor = string.format("/home/arion/.config/autocolor/venv/bin/python3 /home/arion/.config/autocolor/autocolor.py %s", beautiful.wallpaper)
+autocolor = string.format("~/.config/autocolor/venv/bin/python3 ~/.config/autocolor/autocolor.py %s", beautiful.wallpaper)
 os.execute(autocolor)
 awful.spawn("picom")
 -- {{{ Error handling
@@ -47,7 +47,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 --beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init("/home/arion/.config/awesome/default/theme.lua")
+beautiful.init("~/.config/awesome/default/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "nano"

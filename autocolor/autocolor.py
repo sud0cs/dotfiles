@@ -50,6 +50,7 @@ def main():
         data = file.read()
     IMAGE = re.search('theme.wallpaper.*= ".*"', data).group()
     IMAGE = IMAGE[IMAGE.find('"')+1:len(IMAGE)-1]
+    IMAGE.replace('~', f'/home/{USERNAME}')
     main_color = palette(IMAGE).getMainColor()
     main_color_luminance = get_luminance(main_color)
     main_color = list(main_color)
