@@ -187,7 +187,6 @@ while (int_volume == nil) do
   int_volume = io.popen("pamixer --get-volume"):read("*a")
   int_volume = tonumber(int_volume)
 end
-naughty.notify{title="pamixer", text=""..pamixer}
 screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
 --naughty.notification({message = "UwU"})
