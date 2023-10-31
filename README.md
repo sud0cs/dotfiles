@@ -9,6 +9,7 @@
 ### Dependencies
 In order to use this dotfiles you will need to install the following dependencies:
 - `awesomewm`
+- `MesloLGS Nerd Font`
 - `python3` and `python-pip`
 - `kitty`
 - `rofi`
