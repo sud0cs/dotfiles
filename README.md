@@ -19,7 +19,9 @@ In order to use this dotfiles you will need to install the following dependencie
 - `flameshot`
 
 <b>Assuming AwesomeWM is already installed</b>
-󰣇 (Enable multilib first)
+
+  &nbsp; (Enable multilib first)
+
 ```bash
 sudo pacman -S ttf-meslo-nerd ttf-arimo-nerd python3 python-pip kitty rofi firefox picom pamixer flameshot
 ```
