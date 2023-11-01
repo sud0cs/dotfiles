@@ -189,7 +189,6 @@ while (int_volume == nil) do
 end
 screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
---naughty.notification({message = "UwU"})
   volume_icon = wibox.widget.textbox(" ")
   volume_icon.font = "MesloLGS Nerd Font 12"
   volume_icon_container = wibox.container.margin(volume_icon, 20, 10, 20, 20)

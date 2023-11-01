@@ -18,6 +18,11 @@ In order to use this dotfiles you will need to install the following dependencie
 - `pamixer`
 - `flameshot`
 
+<b>Assuming AwesomeWM is already installed</b>
+󰣇 (Enable multilib first)
+```bash
+sudo pacman -S ttf-meslo-nerd ttf-arimo-nerd python3 python-pip kitty rofi firefox picom pamixer flameshot
+```
 ### Instructions
 
 Once all the dependencies have been installed, clone the repository
@@ -59,3 +64,4 @@ List of keybindings which differ from the default.
 |`mod`+`Tab`|select next workspace|
 |`mod`+`Shift`+`Tab`|select previous workspace|
 |`mod`+`shift`+`s`|take screenshot with flameshot|
+
