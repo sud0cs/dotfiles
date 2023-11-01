@@ -1,6 +1,6 @@
 from PIL import Image
 import getpass
-import re
+import re, os, json
 import math
 
 class palette:
@@ -38,19 +38,35 @@ def color_to_hex(tpl : tuple):
     return f'#{rgb[0]}{rgb[1]}{rgb[2]}'
 def main():
 
+    with open('cfg.json', 'a+') as cfg_file:
+        try:
+            cfg = json.loads(cfg_file.read())
+            CURRENT_WALLPAPER = cfg['wallpaper']
+        except:
+            CURRENT_WALLPAPER = ''
     USERNAME = getpass.getuser()
     AWESOME_CONFIG_FILE = f'/home/{USERNAME}/.config/awesome/rc.lua'
     AWESOME_THEME_FILE = f'/home/{USERNAME}/.config/awesome/default/theme.lua'
     KITTY_THEME_FILE = f'/home/{USERNAME}/.config/kitty/current-theme.conf'
     ROFI_THEME_FILE = f'/home/{USERNAME}/.config/rofi/theme.rasi'
-    FIREFOX_UI_THEME_FILE = f'/home/{USERNAME}/.mozilla/firefox/85b8jlk4.default-release/chrome/userChrome.css'
+    FIREFOX_UI_THEME_FILE = f'/home/{USERNAME}/.mozilla/firefox/'
     FIREFOX_HOME_THEME_FILE = f'/home/{USERNAME}/homepage/style.css'
+
+    for i in os.listdir(FIREFOX_UI_THEME_FILE):
+        if 'default-release' in i:
+            FIREFOX_UI_THEME_FILE+=f'{i}/chrome/userChrome.css'
+            break
 
     with open(AWESOME_THEME_FILE, 'r') as file:
         data = file.read()
     IMAGE = re.search('theme.wallpaper.*= ".*"', data).group()
     IMAGE = IMAGE[IMAGE.find('"')+1:len(IMAGE)-1]
     IMAGE = IMAGE.replace('~', f'/home/{USERNAME}')
+    if CURRENT_WALLPAPER == IMAGE:
+        exit()
+    else:
+        with open('cfg.json','w') as cfg_file:
+            cfg_file.write(json.dumps({'wallpaper':IMAGE}))
     main_color = palette(IMAGE).getMainColor()
     main_color_luminance = get_luminance(main_color)
     main_color = list(main_color)
