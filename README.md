@@ -20,7 +20,7 @@ In order to use this dotfiles you will need to install the following dependencie
 
 <b>Assuming AwesomeWM is already installed</b>
 
-  &nbsp; (Enable multilib first)
+<b>Arch</b> (Enable multilib first)
 
 ```bash
 sudo pacman -S ttf-meslo-nerd ttf-arimo-nerd python3 python-pip kitty rofi firefox picom pamixer flameshot
