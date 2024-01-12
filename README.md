@@ -51,8 +51,7 @@ We need to create a virtual environment to run the python code:
 cd ~/.config/autocolor && \
 python3 -m venv venv && \
 source venv/bin/activate && \
-pip install pillow
-
+pip install opencv-python scikit-learn
 ```
 
 To set up the firefox first go to about:config, search `toolkit.legacyUserProfileCustomizations.stylesheets` and double-click it until its value is <b>true</b>. Then go to about:preferences#home and set the startup page to the custom URL `file:///home/{yourusername}/homepage/index.html`
@@ -66,4 +65,3 @@ List of keybindings which differ from the default.
 |`mod`+`Tab`|select next workspace|
 |`mod`+`Shift`+`Tab`|select previous workspace|
 |`mod`+`shift`+`s`|take screenshot with flameshot|
-
