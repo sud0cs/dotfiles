@@ -1,0 +1,45 @@
+:root{
+  --bg: #1c1b2a;
+  --accent: #2e9cc7;
+  --font-color: #eeedf4;
+
+toolbar *{
+  color: var(--font-color) !important;
+}
+
+/*panel, menupopup{
+  border-radius: 20px !important;
+  border: 2px solid var(--accent) !important;
+  background-color: var(--bg) !important;
+}
+box, panelview, toolbaritem, toolbarbutton{
+  border: none !important;
+  border-radius: 20px !important;
+  background-color: var(--bg) !important;
+}*/
+.tab-background{
+  background-color: var(--bg) !important;
+  border-radius: 20px !important;
+}
+#TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon, .tab-background:is([selected], [multiselected]){
+  border: 2px solid var(--accent) !important;
+  /*border-radius: 20px !important;*/
+}
+#TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon, #tabbrowser-tabs:not([noshadowfortests]) .tab-background:is([selected], [multiselected]){
+  box-shadow: none !important;
+}
+#TabsToolbar, .browser-toolbar{
+  background-color: var(--bg) !important;
+}
+#nav-bar{
+  box-shadow: none !important;
+}
+#navigator-toolbox{
+  border-bottom: none !important;
+}
+#urlbar-background{
+  background-color: var(--bg) !important;
+  border: 2px solid var(--accent) !important;
+  border-radius: 20px !important;
+}
+
