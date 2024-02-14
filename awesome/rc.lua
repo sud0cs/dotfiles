@@ -14,12 +14,14 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+
+local bg_color = "#1c1b2a"
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 autocolor = string.format("~/.config/autocolor/venv/bin/python3 ~/.config/autocolor/autocolor.py %s", beautiful.wallpaper)
 os.execute(autocolor)
-awful.spawn("picom")
+awful.spawn.easy_async("picom", function () end)
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -168,7 +170,7 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.centered(wallpaper, s, 10)
+        gears.wallpaper.maximized(wallpaper, s)
     end
 end
 
@@ -181,7 +183,7 @@ int_volume = nil
 pamixer = io.popen("which pamixer"):read("*a")
 if (pamixer == "")
 then
-  int_volume = 15
+  int_volume = 1
 end
 while (int_volume == nil) do
   int_volume = io.popen("pamixer --get-volume"):read("*a")
@@ -189,14 +191,14 @@ while (int_volume == nil) do
 end
 screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
-  volume_icon = wibox.widget.textbox(" ")
-  volume_icon.font = "MesloLGS Nerd Font 12"
-  volume_icon_container = wibox.container.margin(volume_icon, 20, 10, 20, 20)
+  s.volume_icon = wibox.widget.textbox(" ")
+  s.volume_icon.font = "MesloLGS Nerd Font 12"
+  s.volume_icon_container = wibox.container.margin(s.volume_icon, 20, 10, 20, 20)
   s.volume = wibox.widget{
     bar_shape = gears.shape.rounded_rect,
-    forced_width = 250,
+    forced_width = 180,
     handle_width = 11,
-    bar_width = 100,
+    bar_width = 1000,
     bar_height          = 3,
     bar_color           = beautiful.fg_normal,
     handle_color        = beautiful.fg_normal,
@@ -204,6 +206,18 @@ awful.screen.connect_for_each_screen(function(s)
     handle_border_color = beautiful.fg_normal,
     handle_border_width = 0,
     value               = int_volume,
+    --bar_margins = {
+    --  left = 0,
+    --  right = 0,
+    --  top = 0,
+    --  bottom = 0,
+    --},
+    handle_margins = {
+      left = 0,
+      right = 0,
+      top = 0,
+      bottom = 0,
+    },
     widget              = wibox.widget.slider,
   }
   s.volume_container = wibox.container.margin(s.volume, 10, 10, 20, 20)
@@ -219,8 +233,8 @@ awful.screen.connect_for_each_screen(function(s)
   end)
 
   s.volume:connect_signal("mouse::enter", function(_) 
-    s.volume.bar_color = beautiful.fg_focus
-    s.volume.handle_color = beautiful.fg_focus
+    s.volume.bar_color = beautiful.accent
+    s.volume.handle_color = beautiful.accent
   end)
 
   s.volume:connect_signal("mouse::leave", function(_) 
@@ -229,9 +243,9 @@ awful.screen.connect_for_each_screen(function(s)
   end)
 
   s.poweroff = wibox.widget.textbox(" ")
-  s.poweroff.font = "MesloLGS Nerd Font 70"
+  s.poweroff.font = "MesloLGS Nerd Font 60"
   s.poweroff:connect_signal("mouse::enter", function(_)
-    s.poweroff.markup = "<span foreground='" .. beautiful.fg_focus .. "'> </span>"
+    s.poweroff.markup = "<span foreground='" .. beautiful.accent .. "'> </span>"
   end)
   s.poweroff:connect_signal("mouse::leave", function(_)
     s.poweroff.markup = "<span foreground='" .. beautiful.fg_normal .. "'> </span>"
@@ -245,9 +259,9 @@ awful.screen.connect_for_each_screen(function(s)
   s.poweroff_container = wibox.container.place(s.poweroff, "center", "center")
 
   s.reboot = wibox.widget.textbox(" ")
-  s.reboot.font = "MesloLGS Nerd Font 70"
+  s.reboot.font = "MesloLGS Nerd Font 60"
   s.reboot:connect_signal("mouse::enter", function(_)
-    s.reboot.markup = "<span foreground='" .. beautiful.fg_focus .. "'> </span>"
+    s.reboot.markup = "<span foreground='" .. beautiful.accent .. "'> </span>"
   end)
   s.reboot:connect_signal("mouse::leave", function(_)
     s.reboot.markup = "<span foreground='" .. beautiful.fg_normal .. "'> </span>"
@@ -255,33 +269,54 @@ awful.screen.connect_for_each_screen(function(s)
   s.reboot:connect_signal("button::release", function(_,lx,ly,button)
     if button==1
     then
-    awful.spawn("poweroff")
+    awful.spawn("reboot")
     end
   end)
 
   s.reboot_container = wibox.container.place(s.reboot, "center", "center")
-
-
-  s.settings_wibox = wibox({
+  systray = wibox.widget.systray()
+  systray:set_base_size(30)
+  s.systray_bg = wibox.container.place(systray, "center", "center")
+  s.systray_container = wibox.container.margin(s.systray_bg, 20, 0, 0, 0)
+  settings_wibox = wibox({
     visible = false,
     type = "normal",
     width = 800,
-    height = 500,
+    height = 400,
     bg = beautiful.bg_normal,
     ontop = true,
   --shape_bounding = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 20) end,
   --shape_clip = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 20) end,
     shape = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 20) end,
     screen = s,
-    x = s.geometry.x + math.floor(s.geometry.width/2) - 400,
-    y = s.geometry.y + math.floor(s.geometry.height/2) - 250
+    })
+
+  background_wibox = wibox({
+    visible = false,
+    type = "normal",
+    ontop = true,
+    bg = "#00000000",
+    width = s.geometry.width,
+    height = s.geometry.height,
+    x = s.geometry.x,
+    y = s.geometry.y
   })
 
-  s.settings_wibox:setup{
+  systray_wibox  = wibox({
+    visible = false,
+    type = "normal",
+    width = 800,
+    height = 50,
+    bg = beautiful.bg_normal,
+    shape = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 20) end,
+    ontop = true,
+  })
+
+  settings_wibox:setup{
     layout = wibox.layout.flex.horizontal,
     {
       layout = wibox.layout.fixed.horizontal,
-      volume_icon_container,
+      s.volume_icon_container,
       s.volume_container,
       s.volume_text_container
     },
@@ -292,6 +327,11 @@ awful.screen.connect_for_each_screen(function(s)
     }
   }
 
+  systray_wibox.widget = wibox.widget{
+    layout = wibox.layout.fixed.horizontal,
+    id = "systray",
+    s.systray_container
+  }
     -- Wallpaper
   set_wallpaper(s)
 
@@ -387,7 +427,25 @@ end)
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "s",     function () awful.spawn("flameshot gui") end),
-    awful.key({ modkey,           }, "Escape",     function () awful.screen.focused().settings_wibox.visible = not awful.screen.focused().settings_wibox.visible end),
+    awful.key({ modkey,           }, "Escape",     function ()
+    local s = awful.screen.focused()
+    if background_wibox.screen == s or background_wibox.visible == false
+      then
+        background_wibox.visible = not background_wibox.visible
+        settings_wibox.visible = not settings_wibox.visible
+        systray_wibox.visible = not systray_wibox.visible
+      end
+    background_wibox.screen = s
+    settings_wibox.screen = s
+    settings_wibox.x = s.geometry.x + math.floor(s.geometry.width/2) - 400
+    settings_wibox.y = s.geometry.y + math.floor(s.geometry.height/2) - 175
+    systray_wibox.screen = s
+    systray_wibox.x = s.geometry.x + math.floor(s.geometry.width/2) - 400
+    systray_wibox.y = s.geometry.y + math.floor(s.geometry.height/2) - 250
+    systray:set_screen(awful.screen.focused())end),
+
+    --awful.key({modkey,            },"z",        function () naughty.notify({title="press"}) end, function () naughty.notify({title="release"}) end),
+
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, "Shift"   }, "Tab",   function() awful.tag.viewprev() rename_tags() end,

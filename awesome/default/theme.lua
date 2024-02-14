@@ -13,25 +13,25 @@ local theme = {}
 
 theme.font          = "MesloLGS Nerd Font 8"
 
-theme.bg_normal = "#272835"
+theme.accent = "#2e9cc7"
+theme.bg_normal = "#1c1b2a"
 theme.bg_focus      = "#00000000"
 theme.bg_urgent     = "#00000000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal = "#ced4df"
-theme.fg_focus = "#ffffff"
+theme.fg_normal = "#eeedf4"
+theme.fg_focus = "#d4d2e0"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(10)
 theme.border_width  = dpi(0)
-theme.border_normal = "#00000000"
-theme.border_focus  = "#00000000"
-theme.border_marked = "#00000000"
+theme.border_normal = theme.accent
+theme.border_focus = theme.accent
+theme.border_marked = theme.accent
 
 theme.wallpaper = "~/.wallpapers/arch_chan.jpg"
-
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
