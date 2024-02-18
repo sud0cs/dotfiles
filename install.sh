@@ -16,9 +16,9 @@ then
   rm -rf pamixer
   mkdir -p ~/.local/share/fonts
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip"
-  unzip -q Meslo.zip -d ~/.local/share/fonts/ -o
+  unzip -o Meslo.zip -d ~/.local/share/fonts/ -o
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Arimo.zip"
-  unzip -q Arimo.zip -d ~/.local/share/fonts/ -o
+  unzip -o Arimo.zip -d ~/.local/share/fonts/ -o
   rm -rf Arimo.zip
   rm -rf Meslo.zip
 elif [ -x "$(command -v pacman)" ];
@@ -28,15 +28,15 @@ elif [ -x "$(command -v dnf)" ];
 then
   echo "dnf"
 fi
-cp -r awesome ~/.config/ && \
-cp -r kitty ~/.config/ && \
-cp -r rofi ~/.config/ && \
-cp -r autocolor ~/.config/ && \
+cp -r awesome ~/.config/
+cp -r kitty ~/.config/
+cp -r rofi ~/.config/
+cp -r autocolor ~/.config/
 cp -r .wallpapers ~
-cp -r firefox/homepage ~ && \
-cp -r firefox/chrome ~/.mozilla/firefox/*.default-release/ && \
+cp -r firefox/homepage ~
+cp -r firefox/chrome ~/.mozilla/firefox/*.default-release/
 cp -r compfy ~/.config/
-cd ~/.config/autocolor && \
-python3 -m venv venv && \
-source venv/bin/activate && \
+cd ~/.config/autocolor
+python3 -m venv venv
+source venv/bin/activate
 pip3 install opencv-python scikit-learn
