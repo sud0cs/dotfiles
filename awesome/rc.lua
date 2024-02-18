@@ -21,7 +21,7 @@ local bg_color = "#1c1b2a"
 require("awful.hotkeys_popup.keys")
 autocolor = string.format("~/.config/autocolor/venv/bin/python3 ~/.config/autocolor/autocolor.py %s", beautiful.wallpaper)
 os.execute(autocolor)
-awful.spawn.easy_async("picom", function () end)
+awful.spawn.easy_async_with_shell("compfy --config ~/.config/compfy/compfy.conf")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
