@@ -1,13 +1,13 @@
 #!/bin/bash
 if [ -x "$(command -v apt-get)" ];
 then
-  sudo apt-get install python3 python3-pip kitty rofi firefox flameshot wget libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev unzip -y
-  git clone https://github.com/allusive-dev/compfy
-  cd compfy
+  sudo apt-get install python3 python3-pip python3-venv kitty rofi firefox flameshot wget libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev unzip build-essential cmake libxinerama-dev libxcb-xinerama0-dev libpulse-dev libcxxopts-dev -y
+  git clone https://github.com/allusive-dev/compfy compfy_git
+  cd compfy_git
   meson setup . build
   ninja -C build install
   cd ..
-  rm -rf compfy
+  rm -rf compfy_git
   git clone https://github.com/cdemoulins/pamixer.git
   cd pamixer
   meson setup build
@@ -16,9 +16,9 @@ then
   rm -rf pamixer
   mkdir -p ~/.local/share/fonts
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip"
-  unzip -q Meslo.zip -d ~/.local/share/fonts/
+  unzip -q Meslo.zip -d ~/.local/share/fonts/ -o
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Arimo.zip"
-  unzip -q Arimo.zip -d ~/.local/share/fonts/
+  unzip -q Arimo.zip -d ~/.local/share/fonts/ -o
   rm -rf Arimo.zip
   rm -rf Meslo.zip
 elif [ -x "$(command -v pacman)" ];
