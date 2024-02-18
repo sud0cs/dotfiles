@@ -16,9 +16,9 @@ then
   rm -rf pamixer
   mkdir -p ~/.local/share/fonts
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip"
-  unzip -o Meslo.zip -d ~/.local/share/fonts/ -o
+  unzip -o Meslo.zip -d ~/.local/share/fonts/
   wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Arimo.zip"
-  unzip -o Arimo.zip -d ~/.local/share/fonts/ -o
+  unzip -o Arimo.zip -d ~/.local/share/fonts/
   rm -rf Arimo.zip
   rm -rf Meslo.zip
 elif [ -x "$(command -v pacman)" ];
