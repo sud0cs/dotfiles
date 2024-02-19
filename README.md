@@ -9,23 +9,27 @@
 ### Dependencies
 In order to use this dotfiles you will need to install the following dependencies:
 - `awesomewm`
-- `MesloLGS Nerd Font` and `Arimo Nerd Font`
+- `MesloLGS Nerd Font` and `Arimo Nerd Font`. You can find all Nerd Fonts [here](https://www.nerdfonts.com/)
 - `python3` and `python-pip`
 - `kitty`
 - `rofi`
 - `firefox`
-- `picom`
-- `pamixer`
+- `[compfy](https://github.com/allusive-dev/compfy)`
+- `[pamixer](https://github.com/cdemoulins/pamixer)`
 - `flameshot`
 
 <b>Assuming AwesomeWM is already installed</b>
 
-<b>Arch</b> (Enable multilib first)
+### Instructions
+
+#### Arch, Debian, Fedora and derivates
 
 ```bash
-sudo pacman -S ttf-meslo-nerd ttf-arimo-nerd python3 python-pip kitty rofi firefox picom pamixer flameshot
+git clone https://github.com/sud0cs/dotfiles
+cd dotfiles
+./install.sh
 ```
-### Instructions
+#### Others
 
 Once all the dependencies have been installed, clone the repository
 
@@ -35,14 +39,14 @@ git clone https://github.com/sud0cs/dotfiles
 Now lets copy the files to their corresponding location. <b> Remember to backup your config before!</b>
 
 ```bash
-cp -r dotfiles/awesome ~/.config/ && \
-cp -r dotfiles/kitty ~/.config/ && \
-cp -r dotfiles/rofi ~/.config/ && \
-cp -r dotfiles/autocolor ~/.config/ && \
+cp -r dotfiles/awesome ~/.config/
+cp -r dotfiles/kitty ~/.config/
+cp -r dotfiles/rofi ~/.config/
+cp -r dotfiles/autocolor ~/.config/
 cp -r dotfiles/.wallpapers ~
-cp -r dotfiles/firefox/homepage ~ && \
-cp -r dotfiles/firefox/chrome ~/.mozilla/firefox/*.default-release/ && \
-sudo cp -r dotfiles/picom/picom.conf /etc/xdg/
+cp -r dotfiles/firefox/homepage ~
+cp -r dotfiles/firefox/chrome ~/.mozilla/firefox/*.default-release/
+cp -r dotfiles/compfy/compfy.conf ~/.config/
 ```
 
 We need to create a virtual environment to run the python code:
@@ -55,6 +59,7 @@ pip install opencv-python scikit-learn
 ```
 
 To set up the firefox first go to about:config, search `toolkit.legacyUserProfileCustomizations.stylesheets` and double-click it until its value is <b>true</b>. Then go to about:preferences#home and set the startup page to the custom URL `file:///home/{yourusername}/homepage/index.html`
+
 ## Keybindings
 List of keybindings which differ from the default.
 |keybinding|description|
