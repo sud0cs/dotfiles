@@ -14,8 +14,8 @@ In order to use this dotfiles you will need to install the following dependencie
 - `kitty`
 - `rofi`
 - `firefox`
-- `[compfy](https://github.com/allusive-dev/compfy)`
-- `[pamixer](https://github.com/cdemoulins/pamixer)`
+- [`compfy`](https://github.com/allusive-dev/compfy)
+- [`pamixer`](https://github.com/cdemoulins/pamixer)
 - `flameshot`
 
 <b>Assuming AwesomeWM is already installed</b>
