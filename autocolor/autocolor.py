@@ -1,113 +1,59 @@
-import getpass
-import re, os, json
+import getpass, os, re
 import IMG
+from ConfigParser import ConfigParser
+
+class Colors:
+    def __init__(self, colors):
+        self.BG = colors['bg_color']
+        self.ACCENT = colors['accent_color']
+        self.FG = colors['text_color']
+        self.FG_FOCUS = colors['text_focus']
+        self.FG_ACCENT = colors['text_accent']
+
 def main():
-    with open('cfg.json', 'a+') as cfg_file:
-        try:
-            cfg = json.loads(cfg_file.read())
-            CURRENT_WALLPAPER = cfg['wallpaper']
-        except:
-            CURRENT_WALLPAPER = ''
-    USERNAME = getpass.getuser()
-    AWESOME_CONFIG_FILE = f'/home/{USERNAME}/.config/awesome/rc.lua'
-    AWESOME_THEME_FILE = f'/home/{USERNAME}/.config/awesome/default/theme.lua'
-    KITTY_THEME_FILE = f'/home/{USERNAME}/.config/kitty/current-theme.conf'
-    ROFI_THEME_FILE = f'/home/{USERNAME}/.config/rofi/theme.rasi'
-    FIREFOX_UI_THEME_FILE = f'/home/{USERNAME}/.mozilla/firefox/'
-    FIREFOX_HOME_THEME_FILE = f'/home/{USERNAME}/homepage/style.css'
-
-    for i in os.listdir(FIREFOX_UI_THEME_FILE):
-        if 'default-release' in i:
-            FIREFOX_UI_THEME_FILE+=f'{i}/chrome/userChrome.css'
-            break
-
-    with open(AWESOME_THEME_FILE, 'r') as file:
-        data = file.read()
-    IMAGE = re.search('theme.wallpaper.*= ".*"', data).group()
-    IMAGE = IMAGE[IMAGE.find('"')+1:len(IMAGE)-1]
-    IMAGE = IMAGE.replace('~', f'/home/{USERNAME}')
-    if CURRENT_WALLPAPER == IMAGE:
-        exit()
-    else:
-        with open('cfg.json','w') as cfg_file:
-            cfg_file.write(json.dumps({'wallpaper':IMAGE}))
-        cl = IMG.IMGProcessor()
-    colors = cl.get_colors(IMAGE, 5, (20,20))
-    main_color = colors['bg_color']
-    accent_color = colors['accent_color']
-    text_color = colors['text_color']
-    text_focus = colors['text_focus']
-    text_accent = colors['text_accent']
-
-    fg = re.search('theme.fg_normal.*= ".*"', data).group()
-    fg_focus = re.search('theme.fg_focus.*= ".*"', data).group()
-    bg = re.search('theme.bg_normal.*= ".*"', data).group()
-    data = data.replace(fg, f'theme.fg_normal = "{text_color}"')
-    data = data.replace(fg_focus, f'theme.fg_focus = "{text_focus}"')
-    data = data.replace(bg, f'theme.bg_normal = "{main_color}"')
-    with open(AWESOME_THEME_FILE, 'w') as file:
-        file.write(data)
-
-    with open(AWESOME_CONFIG_FILE, 'r') as file:
-        data = file.read()
-    bg = re.search('local bg_color = ".*"', data).group()
-    data = data.replace(bg, f'local bg_color = "{main_color}"')
-
-    with open(AWESOME_CONFIG_FILE, 'w') as file:
-        file.write(data)
     
-    with open(KITTY_THEME_FILE, 'r') as file:
+    USERNAME = getpass.getuser()
+    CONF_PATH = f'/home/{USERNAME}/.config/autocolor/cfg.json'
+    parser = ConfigParser(CONF_PATH)
+    cfg = parser.parse()
+    
+    CURRENT_WALLPAPER = cfg.WALLPAPER.replace('%username%', USERNAME)
+
+    with open(cfg.AWESOME_THEME.FILE_LOCATION.replace('%username%', USERNAME), 'r') as file:
         data = file.read()
-    fg_kitty = re.search('foreground.*#.*', data).group()
-    bg_kitty = re.search('background.*#.*', data).group()
-    data = data.replace(fg_kitty, f'foreground {text_color}')
-    data = data.replace(bg_kitty, f'background {main_color}')
-    with open(KITTY_THEME_FILE, 'w') as file:
-        file.write(data)
+    AWESOME_WALLPAPER = re.search('theme.wallpaper.*= ".*"', data).group()
+    AWESOME_WALLPAPER = AWESOME_WALLPAPER[AWESOME_WALLPAPER.find('"')+1:len(AWESOME_WALLPAPER)-1]
+    AWESOME_WALLPAPER = AWESOME_WALLPAPER.replace('~', f'/home/{USERNAME}')
+    if CURRENT_WALLPAPER == AWESOME_WALLPAPER:
+        exit()
 
+    cfg.WALLPAPER = AWESOME_WALLPAPER
 
-    with open(ROFI_THEME_FILE, 'r') as file:
-        data = file.read()
+    cl = IMG.IMGProcessor()
+    colors = cl.get_colors(AWESOME_WALLPAPER, 5, (20,20))
+    colors = Colors(colors)
 
-    rofi_bg = re.search('bg:.*#.*;', data).group()
-    rofi_fg = re.search('fg:.*#.*;', data).group()
-    rofi_accent = re.search('accent:.*#.*;', data).group()
-    rofi_fg_focus = re.search('fg-focus:.*#.*;', data).group()
+    for i in cfg.get_items():
+        if i!='WALLPAPER':
+            location = cfg[i].FILE_LOCATION
+            if '%username%' in location:
+                location = location.replace('%username%', USERNAME)
+            if '%firefox_default_profile%' in location:
+                for j in os.listdir(location[:location.find('%firefox_default_profile%')]):
+                    if 'default-release' in j:
+                        location = location.replace('%firefox_default_profile%', j)
+            with open(location, 'r') as file:
+                data = file.read()
+            for j in cfg[i].get_items():
+                if j!='FILE_LOCATION':
+                    color = getattr(colors, j)
+                    regex = cfg[i][j].REGEX
+                    final_str = cfg[i][j].FINAL_STR.replace('%color%', color)
+                    data = data.replace(re.search(regex, data).group(), final_str)
+                    
+            with open(f'{location}', 'w') as file:
+                file.write(data)
 
-    data = data.replace(rofi_bg, f'bg: {main_color};')
-    data = data.replace(rofi_fg, f'fg: {text_color};')
-    data = data.replace(rofi_accent, f'accent: {accent_color};')
-    data = data.replace(rofi_fg_focus, f'fg-focus: {text_accent};')
-
-    with open(ROFI_THEME_FILE, 'w') as file:
-        file.write(data)
-
-    with open(FIREFOX_UI_THEME_FILE, 'r') as file:
-        data = file.read()
-
-    firefox_bg = re.search('--bg:.*#.*;', data).group()
-    firefox_accent = re.search('--accent:.*#.*;', data).group()
-    firefox_font_color = re.search('--font-color:.*#.*;', data).group()
-
-    data = data.replace(firefox_bg, f'--bg: {main_color};')
-    data = data.replace(firefox_accent, f'--accent: {accent_color};')
-    data = data.replace(firefox_font_color, f'--font-color: {text_color};')
-
-    with open(FIREFOX_UI_THEME_FILE, 'w') as file:
-        file.write(data)
-
-    with open(FIREFOX_HOME_THEME_FILE, 'r') as file:
-        data = file.read()
-
-    home_bg = re.search('--bg:.*#.*;', data).group()
-    home_accent = re.search('--accent:.*#.*;', data).group()
-    home_font_color = re.search('--font-color:.*#.*;', data).group()
-
-    data = data.replace(home_bg, f'--bg: {main_color};')
-    data = data.replace(home_accent, f'--accent: {accent_color};')
-    data = data.replace(home_font_color, f'--font-color: {text_color};')
-
-    with open(FIREFOX_HOME_THEME_FILE, 'w') as file:
-        file.write(data)
+    parser.write(cfg)
 if __name__ == "__main__":
     main()

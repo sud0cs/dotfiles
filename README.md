@@ -1,4 +1,10 @@
 # Dotfiles
+
+🎨 Change colors automatically based on the wallpaper!
+👨‍💻 Actively mantained
+🚩 Feel free to report any issue or features you want implemented
+
+
 ![preview](./resources/preview.png "Preview")
 
 ## TODO
@@ -20,16 +26,14 @@ In order to use this dotfiles you will need to install the following dependencie
 
 <b>Assuming AwesomeWM is already installed</b>
 
-### Instructions
-
-#### Arch, Debian, Fedora and derivates
+### Arch, Debian, Fedora and derivates
 
 ```bash
 git clone https://github.com/sud0cs/dotfiles
 cd dotfiles
 ./install.sh
 ```
-#### Others
+### Others
 
 Once all the dependencies have been installed, clone the repository
 
