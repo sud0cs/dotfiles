@@ -2,8 +2,6 @@
 
 🎨 Change colors automatically based on the wallpaper!
 
-👨‍💻 Actively mantained
-
 🚩 Feel free to report any issue or features you want implemented
 
 
