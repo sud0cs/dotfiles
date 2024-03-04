@@ -15,13 +15,12 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
-local bg_color = "#1c1b2a"
+local bg_color = '%color'
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 autocolor = string.format("~/.config/autocolor/venv/bin/python3 ~/.config/autocolor/autocolor.py %s", beautiful.wallpaper)
 os.execute(autocolor)
-awful.spawn.easy_async_with_shell("compfy --config ~/.config/compfy/compfy.conf")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -293,7 +292,7 @@ awful.screen.connect_for_each_screen(function(s)
 
   background_wibox = wibox({
     visible = false,
-    type = "normal",
+    type = "popup_menu",
     ontop = true,
     bg = "#00000000",
     width = s.geometry.width,
@@ -786,3 +785,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+--
+awful.spawn.easy_async_with_shell("compfy --config ~/.config/compfy/compfy.conf")
