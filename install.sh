@@ -16,7 +16,7 @@ elif [ -x "$(command -v dnf)" ];
 then
   sudo dnf install python3 python-pip kitty rofi fish neovim lsd bat neofetch firefox pamixer flameshot wget unzip dbus-devel gcc libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel libGL-devel libEGL-devel libepoxy-devel meson pcre2-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel xcb-util-devel cmake -y
 fi
-sudo chsh -s $(which zsh) $(whoami)
+sudo chsh -s $(which fish) $(whoami)
 wget https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
 mkdir ~/jdtls
 tar -xf jdt-language-server-latest.tar.gz -C ~/jdtls
