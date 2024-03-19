@@ -2,7 +2,7 @@
 git clone https://github.com/allusive-dev/compfy compfy_git
 if [ -x "$(command -v apt-get)" ];
 then
-  sudo apt-get install python3 python3-pip python3-venv kitty rofi firefox flameshot wget libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev build-essential unzip cmake libxinerama-dev libxcb-xinerama0-dev libpulse-dev libcxxopts-dev -y
+  sudo apt-get install python3 python3-pip python3-venv kitty neovim neofetch rofi firefox fish lsd bat flameshot wget libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev build-essential unzip cmake libxinerama-dev libxcb-xinerama0-dev libpulse-dev libcxxopts-dev -y
   git clone https://github.com/cdemoulins/pamixer.git
   cd pamixer
   meson setup build
@@ -11,11 +11,12 @@ then
   rm -rf pamixer
 elif [ -x "$(command -v pacman)" ];
 then
-  sudo pacman -S python3 python-pip kitty rofi firefox pamixer flameshot wget unzip meson ninja cmake libev uthash libconfig --noconfirm
+  sudo pacman -S python3 python-pip kitty rofi fish lsd bat neovim neofetch firefox pamixer flameshot wget unzip meson ninja cmake libev uthash libconfig --noconfirm
 elif [ -x "$(command -v dnf)" ];
 then
-  sudo dnf install python3 python-pip kitty rofi firefox pamixer flameshot wget unzip dbus-devel gcc libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel libGL-devel libEGL-devel libepoxy-devel meson pcre2-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel xcb-util-devel cmake -y
+  sudo dnf install python3 python-pip kitty rofi fish neovim lsd bat neofetch firefox pamixer flameshot wget unzip dbus-devel gcc libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel libGL-devel libEGL-devel libepoxy-devel meson pcre2-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel xcb-util-devel cmake -y
 fi
+sudo chsh -s $(which zsh) $(whoami)
 wget https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
 mkdir ~/jdtls
 tar -xf jdt-language-server-latest.tar.gz -C ~/jdtls
@@ -46,6 +47,8 @@ cp -r firefox/homepage ~
 cp -r firefox/chrome ~/.mozilla/firefox/*.default-release/
 cp -r compfy ~/.config/
 cp -r nvim ~/.config/
+cp -r fish ~/.config/
+cp -r neofetch ~/.config/
 cd ~/.config/autocolor
 python3 -m venv venv
 source venv/bin/activate
