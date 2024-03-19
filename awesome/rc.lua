@@ -772,11 +772,21 @@ end)
 
 
 client.connect_signal("manage", function (c)
+  if c.fullscreen == false then
     c.shape = function(cr,w,h)
         gears.shape.rounded_rect(cr,w,h,10)
     end
+  end
 end)
 
+client.connect_signal("property::size", function (c) 
+    if c.fullscreen == false then
+      c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,10) end
+    else
+      c.shape = nil;
+  end
+end)
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})

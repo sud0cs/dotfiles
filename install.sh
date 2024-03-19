@@ -16,6 +16,15 @@ elif [ -x "$(command -v dnf)" ];
 then
   sudo dnf install python3 python-pip kitty rofi firefox pamixer flameshot wget unzip dbus-devel gcc libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel libGL-devel libEGL-devel libepoxy-devel meson pcre2-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel xcb-util-devel cmake -y
 fi
+wget https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
+mkdir ~/jdtls
+tar -xf jdt-language-server-latest.tar.gz -C ~/jdtls
+rm -rf jdt-language-server-latest.tar.gz
+wget https://github.com/zigtools/zls/releases/download/0.11.0/zls-x86-linux.tar.gz
+mkdir zls
+tar -xf zls-x86-linux.tar.gz -C zls
+sudo mv zls/bin/zls /bin/zls
+rm -rf zls zls*
 cd compfy_git
 meson setup . build
 ninja -C build install
@@ -36,6 +45,7 @@ cp -r .wallpapers ~
 cp -r firefox/homepage ~
 cp -r firefox/chrome ~/.mozilla/firefox/*.default-release/
 cp -r compfy ~/.config/
+cp -r nvim ~/.config/
 cd ~/.config/autocolor
 python3 -m venv venv
 source venv/bin/activate
