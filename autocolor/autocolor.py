@@ -1,6 +1,6 @@
 import getpass, os, re
 import IMG
-from ConfigParser import ConfigParser
+from ConfigParser import Parser
 
 class Colors:
     def __init__(self, colors):
@@ -14,8 +14,8 @@ def main():
     
     USERNAME = getpass.getuser()
     CONF_PATH = f'/home/{USERNAME}/.config/autocolor/cfg.json'
-    parser = ConfigParser(CONF_PATH)
-    cfg = parser.parse()
+    parser = Parser()
+    cfg = parser.parse(CONF_PATH)
     
     CURRENT_WALLPAPER = cfg.WALLPAPER.replace('%username%', USERNAME)
 
@@ -33,7 +33,7 @@ def main():
     colors = cl.get_colors(AWESOME_WALLPAPER, 5, (20,20))
     colors = Colors(colors)
 
-    for i in cfg.get_items():
+    for i in cfg.getitems():
         if i!='WALLPAPER':
             location = cfg[i].FILE_LOCATION
             if '%username%' in location:
@@ -44,7 +44,7 @@ def main():
                         location = location.replace('%firefox_default_profile%', j)
             with open(location, 'r') as file:
                 data = file.read()
-            for j in cfg[i].get_items():
+            for j in cfg[i].getitems():
                 if j!='FILE_LOCATION':
                     color = getattr(colors, j)
                     regex = cfg[i][j].REGEX
@@ -54,6 +54,6 @@ def main():
             with open(f'{location}', 'w') as file:
                 file.write(data)
 
-    parser.write(cfg)
+    cfg.write_to_file(CONF_PATH)
 if __name__ == "__main__":
     main()
