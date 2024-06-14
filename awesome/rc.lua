@@ -294,7 +294,7 @@ awful.screen.connect_for_each_screen(function(s)
     visible = false,
     type = "popup_menu",
     ontop = true,
-    bg = "#00000000",
+    bg = "#00000044",
     width = s.geometry.width,
     height = s.geometry.height,
     x = s.geometry.x,

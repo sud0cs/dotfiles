@@ -30,7 +30,7 @@ def main():
     cfg.WALLPAPER = AWESOME_WALLPAPER
 
     cl = IMG.IMGProcessor()
-    colors = cl.get_colors(AWESOME_WALLPAPER, 5, (20,20))
+    colors = cl.get_colors(AWESOME_WALLPAPER, 5, (25,25))
     colors = Colors(colors)
 
     for i in cfg.getitems():
