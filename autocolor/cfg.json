@@ -1,5 +1,5 @@
 {
-    "WALLPAPER": "/home/%username%/.wallpapers/arch_chan.jpg",
+    "WALLPAPER": "/home/arion/.wallpapers/arch_chan.jpg",
     "AWESOME_THEME": {
         "FILE_LOCATION": "/home/%username%/.config/awesome/default/theme.lua",
         "BG": {
@@ -67,33 +67,6 @@
         },
         "ACCENT": {
             "REGEX": "--accent:.*#.*;"
-        }
-    },
-    "GTK_4_THEME": {
-        "FILE_LOCATION": "/home/%username%/.config/gtk-4.0/gtk.css",
-        "BG": {
-            "REGEX": "_color.*#.*;"
-        },
-        "FG": {
-            "REGEX": [
-                "destructive_fg_color.*#.*;",
-                "success_fg_color.*#.*;",
-                "warning_fg_color.*#.*;",
-                "error_fg_color.*#.*;",
-                "window_fg_color.*#.*;",
-                "card_fg_color.*#.*;",
-                "dialog_fg_color.*#.*;",
-                "popover_fg_color.*#.*;",
-                "thumbnail_fg_color.*#.*;",
-                "view_fg_color.*#.*;"
-            ]
-        },
-        "ACCENT": {
-            "REGEX": [
-                "accent_color.*#.*;",
-                "accent_bg_color.*#.*;",
-                "sidebar_bg.*#.*;"
-            ]
         }
     }
 }
