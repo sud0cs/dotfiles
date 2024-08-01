@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 import json
 class Parser():
     @classmethod
@@ -7,10 +8,9 @@ class Parser():
 class Config():
     def __init__(self, conf):
         for key,value in conf.items():
+            print(value, type(value))
             if isinstance(value, dict):
                 setattr(self, key, Config(value))
-            elif isinstance(value, list):
-                setattr(self, key, [Config(i) for i in value])
             else:
                 setattr(self, key, value)
     def getitems(self):
@@ -29,8 +29,7 @@ class Config():
 
     def write_to_file(self, filename):
         with open(filename, 'w+') as file:
-            file.write(json.dumps(self.asdict()))
-
+            file.write(json.dumps(self.asdict(), indent=4))
 
     def __getitem__(self, key):
         if isinstance(key, str):
@@ -39,7 +38,3 @@ class Config():
     def __setitem__(self, key, value):
         if isinstance(key, str):
             setattr(self, key, value)
-    
-if __name__ == "__main__":
-    conf = Parser.parse('test.json')
-    print(conf.asdict())

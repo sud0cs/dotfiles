@@ -2,9 +2,6 @@
 
 🎨 Change colors automatically based on the wallpaper!
 
-🚩 Feel free to report any issue or features you want implemented
-
-
 ![preview](./resources/preview.png "Preview")
 
 ## TODO
@@ -20,7 +17,6 @@ In order to use this dotfiles you will need to install the following dependencie
 - `kitty`
 - `rofi`
 - `firefox`
-- [`compfy`](https://github.com/allusive-dev/compfy)
 - [`pamixer`](https://github.com/cdemoulins/pamixer)
 - `flameshot`
 
@@ -50,7 +46,6 @@ cp -r dotfiles/autocolor ~/.config/
 cp -r dotfiles/.wallpapers ~
 cp -r dotfiles/firefox/homepage ~
 cp -r dotfiles/firefox/chrome ~/.mozilla/firefox/*.default-release/
-cp -r dotfiles/compfy/compfy.conf ~/.config/
 ```
 
 We need to create a virtual environment to run the python code:

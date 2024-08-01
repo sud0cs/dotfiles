@@ -41,6 +41,7 @@ class IMGProcessor():
         bg_color = colors[np.where(count==max(count))[0][0]]
         colors = np.delete(colors, np.where(colors==bg_color)[0][0],0)
         colors = colors.reshape(clusters-1,3)
+        print(colors)
         rgbdist = np.array([self.maxrgbdistance(i) for i in colors])
         accent_color = colors[np.where(rgbdist==max(rgbdist))[0][0]]
         text_color = self.TEXT_DARK if self.luma(bg_color)>125 else self.TEXT_LIGHT
@@ -53,5 +54,6 @@ class IMGProcessor():
             'text_focus': text_focus,
             'text_accent': text_accent
         }
+        print(colors_dict)
 
         return colors_dict

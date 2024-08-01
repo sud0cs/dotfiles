@@ -3,87 +3,97 @@
     "AWESOME_THEME": {
         "FILE_LOCATION": "/home/%username%/.config/awesome/default/theme.lua",
         "BG": {
-            "REGEX": "theme.bg_normal.*= '.*'",
-            "FINAL_STR": "theme.bg_normal = '%color%'"
+            "REGEX": "theme.bg_normal.*= '.*'"
         },
         "FG": {
-            "REGEX": "theme.fg_normal.*= '.*'",
-            "FINAL_STR": "theme.fg_normal = '%color%'"
+            "REGEX": "theme.fg_normal.*= '.*'"
         },
         "FG_FOCUS": {
-            "REGEX": "theme.fg_focus.*= '.*'",
-            "FINAL_STR": "theme.fg_focus = '%color%'"
+            "REGEX": "theme.fg_focus.*= '.*'"
         },
         "ACCENT": {
-            "REGEX": "theme.accent.*= '.*'",
-            "FINAL_STR": "theme.accent = '%color%'"
+            "REGEX": "theme.accent.*= '.*'"
         }
     },
     "AWESOME_CONFIG": {
         "FILE_LOCATION": "/home/%username%/.config/awesome/rc.lua",
         "BG": {
-            "REGEX": "local bg_color = '.*'",
-            "FINAL_STR": "local bg_color = '%color'"
+            "REGEX": "local bg_color = '.*'"
         }
     },
     "KITTY_THEME": {
         "FILE_LOCATION": "/home/%username%/.config/kitty/current-theme.conf",
         "BG": {
-            "REGEX": "background.*#.*",
-            "FINAL_STR": "background %color%"
+            "REGEX": "background.*#.*"
         },
         "FG": {
-            "REGEX": "foreground.*#.*",
-            "FINAL_STR": "foreground %color%"
+            "REGEX": "foreground.*#.*"
         }
     },
     "ROFI_THEME": {
         "FILE_LOCATION": "/home/%username%/.config/rofi/theme.rasi",
         "BG": {
-            "REGEX": "bg:.*#.*;",
-            "FINAL_STR": "bg: %color%;"
+            "REGEX": "bg:.*#.*;"
         },
         "FG": {
-            "REGEX": "fg:.*#.*;",
-            "FINAL_STR": "fg: %color%;"
+            "REGEX": "fg:.*#.*;"
         },
         "FG_FOCUS": {
-            "REGEX": "fg-focus:.*#.*;",
-            "FINAL_STR": "fg-focus: %color%;"
+            "REGEX": "fg-focus:.*#.*;"
         },
         "ACCENT": {
-            "REGEX": "accent:.*#.*;",
-            "FINAL_STR": "accent: %color%;"
+            "REGEX": "accent:.*#.*;"
         }
     },
     "FIREFOX_UI": {
         "FILE_LOCATION": "/home/%username%/.mozilla/firefox/%firefox_default_profile%/chrome/userChrome.css",
         "BG": {
-            "REGEX": "--bg:.*#.*;",
-            "FINAL_STR": "--bg: %color%;"
+            "REGEX": "--bg:.*#.*;"
         },
         "FG": {
-            "REGEX": "--font-color:.*#.*;",
-            "FINAL_STR": "--font-color: %color%;"
+            "REGEX": "--font-color:.*#.*;"
         },
         "ACCENT": {
-            "REGEX": "--accent:.*#.*;",
-            "FINAL_STR": "--accent: %color%;"
+            "REGEX": "--accent:.*#.*;"
         }
     },
     "FIREFOX_HOME": {
         "FILE_LOCATION": "/home/%username%/homepage/style.css",
         "BG": {
-            "REGEX": "--bg:.*#.*;",
-            "FINAL_STR": "--bg: %color%;"
+            "REGEX": "--bg:.*#.*;"
         },
         "FG": {
-            "REGEX": "--font-color:.*#.*;",
-            "FINAL_STR": "--font-color: %color%;"
+            "REGEX": "--font-color:.*#.*;"
         },
         "ACCENT": {
-            "REGEX": "--accent:.*#.*;",
-            "FINAL_STR": "--accent: %color%;"
+            "REGEX": "--accent:.*#.*;"
+        }
+    },
+    "GTK_4_THEME": {
+        "FILE_LOCATION": "/home/%username%/.config/gtk-4.0/gtk.css",
+        "BG": {
+            "REGEX": "_color.*#.*;"
+        },
+        "FG": {
+            "REGEX": [
+                "destructive_fg_color.*#.*;",
+                "success_fg_color.*#.*;",
+                "warning_fg_color.*#.*;",
+                "error_fg_color.*#.*;",
+                "window_fg_color.*#.*;",
+                "card_fg_color.*#.*;",
+                "dialog_fg_color.*#.*;",
+                "popover_fg_color.*#.*;",
+                "thumbnail_fg_color.*#.*;",
+                "view_fg_color.*#.*;"
+            ]
+        },
+        "ACCENT": {
+            "REGEX": [
+                "accent_color.*#.*;",
+                "accent_bg_color.*#.*;",
+                "sidebar_bg.*#.*;"
+            ]
         }
     }
 }

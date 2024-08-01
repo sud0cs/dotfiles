@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 import getpass, os, re
 import IMG
 from ConfigParser import Parser
@@ -25,9 +26,9 @@ def main():
     AWESOME_WALLPAPER = AWESOME_WALLPAPER[AWESOME_WALLPAPER.find('"')+1:len(AWESOME_WALLPAPER)-1]
     AWESOME_WALLPAPER = AWESOME_WALLPAPER.replace('~', f'/home/{USERNAME}')
     if CURRENT_WALLPAPER == AWESOME_WALLPAPER:
-        exit()
+       exit()
 
-    cfg.WALLPAPER = AWESOME_WALLPAPER
+    cfg.WALLPAPER = AWESOME_WALLPAPER.replace(USERNAME,'%username%')
 
     cl = IMG.IMGProcessor()
     colors = cl.get_colors(AWESOME_WALLPAPER, 5, (25,25))
@@ -48,9 +49,13 @@ def main():
                 if j!='FILE_LOCATION':
                     color = getattr(colors, j)
                     regex = cfg[i][j].REGEX
-                    final_str = cfg[i][j].FINAL_STR.replace('%color%', color)
-                    data = data.replace(re.search(regex, data).group(), final_str)
-                    
+                    if isinstance(regex, str):
+                        for r in re.finditer(regex, data):
+                            data = data.replace(r.group(), r.group().replace(re.search('#.[0-9A-Fa-f]*',r.group()).group(),color))
+                    elif isinstance(regex, list):
+                        for _regex in regex:
+                            for r in re.finditer(_regex, data):
+                                data = data.replace(r.group(), r.group().replace(re.search('#.[0-9A-Fa-f]*',r.group()).group(),color))
             with open(f'{location}', 'w') as file:
                 file.write(data)
 
